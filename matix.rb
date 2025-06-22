@@ -1,18 +1,12 @@
-def lazy_printable_random_utf8(mb=3)
-  return enum_for(__callee__, mb).lazy unless block_given?
-
-  # determine the maximum codepoint based on the number of UTF-8 bytes
-  max = [0x80, 0x800, 0x10000, 0x110000][mb.pred]
-
-  loop do
-    char = rand(max).chr('UTF-8')
-
-    yield char if char.match?(/[[:print:]]/)
-  rescue RangeError
-  end
-end
-
-st = lazy_printable_random_utf8(5)
+glyphset = "ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴヵヶヷヸヹヺ・ーヽヾヿ！＂＃＄％＆＇（）＊＋，－．／０１２３４５６７８９：；＜＝＞￠￡￢￣￤￥￦"
+colors = ["\e[38;5;15m","\e[38;5;46m","\e[38;5;40m","\e[38;5;34m","\e[38;5;28m","\e[38;5;22m","\e[38;5;0m"]
 a = `stty size`.scan(/\d+/).map { |s| s.to_i }.reverse
 
-puts "\e[38;5;156m ########{a}########no resto id#{st}\e[0m"
+puts "\e[38;5;156m ########{a}########no resto id\e[0m"
+
+for a in 1..5 do
+  for b in 1..5 do
+    print "#{colors[b-1]}#{glyphset[rand(glyphset.length)]}\e[0m"
+  end
+  print "\n"
+end
