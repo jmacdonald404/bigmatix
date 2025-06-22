@@ -13,4 +13,6 @@ def lazy_printable_random_utf8(mb=3)
 end
 
 st = lazy_printable_random_utf8(5)
-puts "\e[38;5;156m ###############no resto id#{st}\e[0m"
+a = `stty size`.scan(/\d+/).map { |s| s.to_i }.reverse
+
+puts "\e[38;5;156m ########{a}########no resto id#{st}\e[0m"
